@@ -1,5 +1,10 @@
 ; A boot sector that enters 32-bit protected mode.
-[org 0x7c00]
+
+BITS 16
+
+ORG 0x7C00
+
+start:
         mov bp, 0x9000 ; Set the stack.
         mov sp, bp
 
