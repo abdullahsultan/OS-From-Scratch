@@ -28,14 +28,3 @@ init_pm:
   mov ebp, 0x90000
   mov esp, ebp
   call BEGIN_PM
-
-BEGIN_PM:
-
-        mov ebx, MSG_PROT_MODE
-        call print_string_pm
-        jmp $
-
-
-    ;MSG_REAL_MODE db "Started in 16-bit Real Mode", 0
-    MSG_PROT_MODE db "Successfully landed in 32-bit Protected Mode", 0
-; Bootsector padding

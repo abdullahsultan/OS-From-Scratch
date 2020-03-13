@@ -10,7 +10,7 @@ start:
 
         mov  bx, MSG_REAL_MODE
         call print_string
-        MSG_REAL_MODE db "Started in 16-bit Real Mode", 0
+        
         call switch_to_pm ; Note that we never return from here.
         jmp $
 
@@ -18,7 +18,6 @@ start:
 %include "gdt.asm"
 %include "print_string_pm.asm"
 %include "switch_to_pm.asm"
+%include "final.asm"
 
-;bits 32
-times 510-($-$$) db 0
-dw 0xaa55
+bits 32
