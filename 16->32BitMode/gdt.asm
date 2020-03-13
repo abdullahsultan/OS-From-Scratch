@@ -1,14 +1,16 @@
 ; GDT
+bits 16
 gdt_start:
 
 gdt_null:
   dd 0x0
   dd 0x0
-gdt_code:
 
+gdt_code:
   dw 0xffff
   dw 0x0
   db 0x0
+  db 10011010b
   db 11001111b
   db 0x0
 
@@ -21,6 +23,8 @@ gdt_data:
   db 0x0
 gdt_end:
 ; GDT descriptior
-gdt_descriptor: dw gdt_end - gdt_start - 1 
+gdt_descriptor:
+  dw gdt_end - gdt_start - 1
+  dd gdt_start
 CODE_SEG equ gdt_code - gdt_start
 DATA_SEG equ gdt_data - gdt_start
