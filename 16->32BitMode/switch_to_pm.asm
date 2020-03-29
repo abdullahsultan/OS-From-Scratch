@@ -1,9 +1,8 @@
 bits 16
 ; Switch to protected mode
 switch_to_pm:
-mov ah,0x0e
-mov al,'H'
-int 0x10
+
+
 
 cli
 

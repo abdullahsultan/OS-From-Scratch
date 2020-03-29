@@ -8,9 +8,13 @@ start:
         mov bp, 0x9000 ; Set the stack.
         mov sp, bp
 
-        mov  bx, MSG_REAL_MODE
+        mov si,MSG_REAL_MODE
         call print_string
-        
+
+        mov ah,0x0e
+        mov al, 'X'
+        int 0x10
+
         call switch_to_pm ; Note that we never return from here.
         jmp $
 
@@ -19,5 +23,7 @@ start:
 %include "print_string_pm.asm"
 %include "switch_to_pm.asm"
 %include "final.asm"
+
+MSG_REAL_MODE db "Started in 16-bit Real Mode", 0
 
 bits 32
