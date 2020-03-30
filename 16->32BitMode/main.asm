@@ -4,29 +4,35 @@ BITS 16
 
 ORG 0x7C00
 
-start:
+KERNEL_OFFSET equ 0x1000
+
+        mov dl,[BOOT_DRIVE]
+
         mov bp, 0x9000 ; Set the stack.
         mov sp, bp
 
         mov si,MSG_REAL_MODE
         call print_string
 
-        mov ah,0x0e
-        mov al, 'X'
-        int 0x10
 
-        mov ah,00h
-        int 16h
+        mov ah,00h ;Funcgtion to wait for keystroke
+        int 16h ;Keyboard Interupt
+
+        call load_kernel
 
         call switch_to_pm ; Note that we never return from here.
         jmp $
-        MSG_REAL_MODE db "Started in 16-bit Real Mode", 0
+
+        MSG_REAL_MODE db "Started in 16-bit Real Mode press any key", 0
 
 %include "print_string.asm"
+%include "disk_load.asm"
 %include "gdt.asm"
 %include "print_string_pm.asm"
 %include "switch_to_pm.asm"
 %include "final.asm"
+%include "load_kernel.asm"
+
 
 
 
