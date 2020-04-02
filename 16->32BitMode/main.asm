@@ -6,7 +6,7 @@ ORG 0x7C00
 
 KERNEL_OFFSET equ 0x1000
 
-        mov dl,[BOOT_DRIVE]
+        mov [BOOT_DRIVE],dl
 
         mov bp, 0x9000 ; Set the stack.
         mov sp, bp
@@ -17,6 +17,10 @@ KERNEL_OFFSET equ 0x1000
 
         mov ah,00h ;Funcgtion to wait for keystroke
         int 16h ;Keyboard Interupt
+
+        mov ah, 0x0e
+        mov al, '1'
+        int 0x10 ; check 1
 
         call load_kernel
 

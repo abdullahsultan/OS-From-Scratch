@@ -5,11 +5,8 @@ print_string:
       mov ah, 0x0e
 
       loop:
-      	; Load a byte from SI into AL
-      	; and then increase SI.
       	lodsb
-      	; If AL contains a null-terminating
-      	; character, then stop printing.
+
       	cmp al, 0
       	je done_sxt
 
@@ -18,5 +15,4 @@ print_string:
       	jmp loop
 
       done_sxt:
-      	; Return control to the caller.
       	ret
