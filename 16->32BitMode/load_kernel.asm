@@ -1,11 +1,9 @@
 ; load_kernel
 bits 16
+org 0x7c00
 
-load_kernel :
+load_kernel:
 
-mov ah, 0x0e
-mov al, '2'
-int 0x10 ;Check 2
 
 mov si , MSG_LOAD_KERNEL
 call print_string
