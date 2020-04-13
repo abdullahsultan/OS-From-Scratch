@@ -11,7 +11,7 @@ kernel.bin : kernel_entry.o kernel.o
 %.o : %.c ${HEADERS}
 					gcc -ffreestanding -c $< -o $@
 %.o : ../Kernel/%.c ${C_SOURCES}
-					gcc -f elf_i386 -ffreestanding -c $< -o $@
+					gcc -ffreestanding -c $< -o $@
 # Assemble the kernel_entry .
 #%.o : ../Boot/%.asm
 #				nasm $< -f elf -o $@
@@ -20,7 +20,7 @@ kernel_entry.o : ../Boot/kernel_entry.asm
 #%.bin : ../Boot/%.asm
 #				nasm $< -f bin -I 'Boot/' -o $@
 boot_sect.bin : ../Boot/main.asm
-				nasm $< -f bin -I '../Boot' -o $@
+				nasm $< -f bin -I '../Boot/' -o $@
 clean :
 		rm -fr *.bin *.dis *.o os-image
 		rm -fr ../Kernel/*.o ../Boot/*.bin ../Drivers/*.o
