@@ -11,7 +11,7 @@ kernel.bin : kernel_entry.o kernel.o
 %.o : %.c ${HEADERS}
 					gcc -ffreestanding -c $< -o $@
 %.o : ../Kernel/%.c ${C_SOURCES}
-					gcc -ffreestanding -c $< -o $@
+					gcc -m32 -ffreestanding -c $< -o $@
 # Assemble the kernel_entry .
 #%.o : ../Boot/%.asm
 #				nasm $< -f elf -o $@
