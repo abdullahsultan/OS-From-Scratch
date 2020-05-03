@@ -8,10 +8,11 @@ os-image : boot_sect.bin kernel.bin
 				cat $^ > os-image
 kernel.bin : kernel_entry.o kernel.o
 					ld -m elf_i386 -o $@ -Ttext 0x1000 $^ --oformat binary
-%.o : %.c ${HEADERS}
-					gcc -ffreestanding -c $< -o $@
+
 %.o : ../Kernel/%.c ${C_SOURCES}
 					gcc -m32 -ffreestanding -c $< -o $@
+%.o : ../Drivers/%.c ${HEADERS}
+					gcc -ffreestanding -c $< -o $@
 # Assemble the kernel_entry .
 #%.o : ../Boot/%.asm
 #				nasm $< -f elf -o $@
