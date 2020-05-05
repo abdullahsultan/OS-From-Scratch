@@ -3,16 +3,19 @@ HEADERS = $( wildcard ../Kernel/*.h ../Drivers/*.h )
 OBJ = $ { C_SOURCES : .c = .o }
 all : os-image
 run : all
-		dd if=os-image of=/dev/adb
+		dd if=os-image of=/dev/sdb
 os-image : boot_sect.bin kernel.bin
 				cat $^ > os-image
-kernel.bin : kernel_entry.o kernel.o
+kernel.bin : kernel_entry.o fnl.o
 					ld -m elf_i386 -o $@ -Ttext 0x1000 $^ --oformat binary
+
+fnl.o : kernel.o screen.o low_level.o
+					gcc -m32 -o $@ $^ #$@ = fnl.o $^ = targets
 
 %.o : ../Kernel/%.c ${C_SOURCES}
 					gcc -m32 -ffreestanding -c $< -o $@
 %.o : ../Drivers/%.c ${HEADERS}
-					gcc -ffreestanding -c $< -o $@
+					gcc -m32 -ffreestanding -c $< -o $@
 # Assemble the kernel_entry .
 #%.o : ../Boot/%.asm
 #				nasm $< -f elf -o $@
